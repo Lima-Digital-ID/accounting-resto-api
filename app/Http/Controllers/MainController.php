@@ -16,7 +16,7 @@ class MainController extends Controller
                                 )
                                 ->whereBetween('penjualan.waktu', [$date.' 00:00:00', $date.' 23:59:59'])  
                                 ->where('penjualan.status_bayar', 'Sudah Bayar')
-                                ->get();
+                                ->get()[0];
 
         return json_encode($penjualan);
     }
