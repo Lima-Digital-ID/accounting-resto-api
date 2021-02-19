@@ -10,3 +10,4 @@
 ## Api URL
 
 - Rekap Resto = [http://localhost:8000/api/rekap-resto/2021-01-01](http://localhost:8000/api/rekap-resto/2021-01-01).
+- Piutang Resto = [http://localhost:8000/api/piutang-resto](http://localhost:8000/api/piutang-resto).
