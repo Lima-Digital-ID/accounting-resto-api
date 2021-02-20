@@ -57,14 +57,18 @@ class MainController extends Controller
         $msg = null;
         $penjualan = null;
         try{
+            $where['penjualan.status_bayar'] = 'Piutang';
+            if(isset($_GET['kode_penjualan'])){
+                $where['penjualan.kode_penjualan'] = $_GET['kode_penjualan'];
+            }
             $penjualan = Penjualan::select(
                 'penjualan.kode_penjualan',
                 'penjualan.nama_customer',
                 DB::raw('penjualan.total_harga - (penjualan.total_diskon + penjualan.total_diskon_tambahan) AS total'),
                 DB::raw('penjualan.total_ppn AS total_ppn'),
                 'penjualan.waktu'
-            )  
-            ->where('penjualan.status_bayar', 'Piutang')
+            )
+            ->where($where)
             ->get();
                 
             $status = 'Success';
