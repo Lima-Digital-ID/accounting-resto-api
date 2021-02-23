@@ -91,4 +91,37 @@ class MainController extends Controller
             return json_encode($response);
         }
     }
+
+    public function bayarPiutang(\Illuminate\Http\Request $req)
+    {
+        $status = null;
+        $msg = null;
+        try{
+            if(isset($_POST['kode_transaksi'])){
+                DB::table('penjualan')->where('kode_penjualan', $req->get('kode_transaksi'))->where('status_bayar', 'Piutang')->update(['status_bayar' => 'Piutang Terbayar']);
+
+                $status = 'Success';
+                $msg = 'Successfully';
+            }
+            else{
+                $status = 'Failed';   
+                $msg = 'Kode transaksi is empty';
+            }
+        }
+        catch(Exception $e){
+            $status = 'Error';
+            $msg = $e->getMessage();  
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            $status = 'Database Error';
+            $msg = $e->getMessage();
+        }
+        finally{
+            $response = [
+                'status' => $status,
+                'message' => $msg
+            ];
+            return json_encode($response);
+        }
+    }
 }
